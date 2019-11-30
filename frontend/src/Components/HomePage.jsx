@@ -124,7 +124,7 @@ class HomePage extends React.Component {
                                 <input type="password" class="form-control" name="cpassword" value={cpassword} onChange={this.handleClick}></input>
                                 <br />
                                 {
-                                    (this.state.validPassword) ? <div class="alert alert-danger" role="alert">
+                                    (this.state.validCpassword) ? <div class="alert alert-danger" role="alert">
                                         <p>Password do not match</p>
                                     </div> : null
                                 }
