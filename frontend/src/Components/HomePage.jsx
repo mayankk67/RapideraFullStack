@@ -126,7 +126,7 @@ class HomePage extends React.Component {
                                 }
                                 {
                                     this.state.nl.map((item, index) => {
-                                        return <div><span key={index}>{item}</span><button onClick={() => this.deletePhone(item)} type="button" class="btn btn-danger">-</button><br /></div>
+                                        return <div><span key={index}>{item}</span>&nbsp;&nbsp;&nbsp;<button onClick={() => this.deletePhone(item)} type="button" class="btn btn-danger">-</button><br /></div>
                                     })
                                 }
                                 <br /><br />
