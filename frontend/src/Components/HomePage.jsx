@@ -14,11 +14,18 @@ class HomePage extends React.Component {
             validNumber: 0,
             validEmail: 0,
             validPassword: 0,
-            validCpassword: 0
+            validCpassword: 0,
+            tnc:0
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.feed = this.feed.bind(this);
+        this.handleButton=this.handleButton.bind(this);
+    }
+    handleButton(event){
+        if(this.state.tnc===0)
+            this.setState({tnc:1});
+        else this.setState({tnc:0});
     }
     feed() {
         var { validCpassword, validEmail, validName, validNumber, validPassword } = this.state;
@@ -61,7 +68,7 @@ class HomePage extends React.Component {
     render() {
         var { name, email, password, cpassword, number } = this.state;
         return (
-            <div>
+            <div className="wrapper">
                 <div className="faarm">
                     <h1>Registration Form</h1>
                 </div>
@@ -69,7 +76,7 @@ class HomePage extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <div class="form-group row">
                             <label htmlFor="name" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" name="name" value={name} onChange={this.handleClick}></input>
                                 <br />
                                 {
@@ -81,7 +88,7 @@ class HomePage extends React.Component {
                         </div>
                         <div class="form-group row">
                             <label htmlFor="email" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-10">
                                 <input type="email" class="form-control" name="email" value={email} onChange={this.handleClick}></input>
                                 <br />
                                 {
@@ -93,7 +100,7 @@ class HomePage extends React.Component {
                         </div>
                         <div class="form-group row">
                             <label htmlFor="phone" class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-10">
                                 <input type="number" class="form-control" name="number" value={number} onChange={this.handleClick}></input>
                                 <br />
                                 {
@@ -105,7 +112,7 @@ class HomePage extends React.Component {
                         </div>
                         <div class="form-group row">
                             <label htmlFor="password" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-10">
                                 <input type="password" class="form-control" name="password" value={password} onChange={this.handleClick}></input>
                                 <br />
                                 {
@@ -120,7 +127,7 @@ class HomePage extends React.Component {
                         </div>
                         <div class="form-group row">
                             <label htmlFor="cpassword" class="col-sm-2 col-form-label">Confirm Password</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-10">
                                 <input type="password" class="form-control" name="cpassword" value={cpassword} onChange={this.handleClick}></input>
                                 <br />
                                 {
@@ -130,11 +137,16 @@ class HomePage extends React.Component {
                                 }
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4 offset-sm-2">
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </div>
+                        <div>
+                            <input type="checkbox" onClick={this.handleButton}></input>
+                            <span> I agree to the terms and conditions</span>
                         </div>
+                        {
+                        (this.state.tnc)?
+                        <div class="form-group row fbtn">
+                                <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                        </div>:null
+                        }
                     </form>
                 </div>
             </div>
