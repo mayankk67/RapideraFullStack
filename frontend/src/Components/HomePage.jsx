@@ -8,6 +8,7 @@ class HomePage extends React.Component {
             name: '',
             email: '',
             number: '',
+            nl: [],
             password: '',
             cpassword: '',
             validName: 0,
@@ -15,17 +16,18 @@ class HomePage extends React.Component {
             validEmail: 0,
             validPassword: 0,
             validCpassword: 0,
-            tnc:0
+            tnc: 0
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.feed = this.feed.bind(this);
-        this.handleButton=this.handleButton.bind(this);
+        this.handleButton = this.handleButton.bind(this);
+        this.handlePhone = this.handlePhone.bind(this);
     }
-    handleButton(event){
-        if(this.state.tnc===0)
-            this.setState({tnc:1});
-        else this.setState({tnc:0});
+    handleButton(event) {
+        if (this.state.tnc === 0)
+            this.setState({ tnc: 1 });
+        else this.setState({ tnc: 0 });
     }
     feed() {
         var { validCpassword, validEmail, validName, validNumber, validPassword } = this.state;
@@ -34,7 +36,7 @@ class HomePage extends React.Component {
     }
     async handleSubmit(event) {
         event.preventDefault();
-        var { name, email, password, cpassword, number } = this.state;
+        var { name, email, password, cpassword} = this.state;
         var lst1 = name.split('');
         if (lst1.indexOf(' ') === -1)
             this.setState({ validName: 1 });
@@ -50,10 +52,6 @@ class HomePage extends React.Component {
             this.setState({ validPassword: 1 });
         else this.setState({ validPassword: 0 });
 
-        if (number.length !== 10)
-            this.setState({ validNumber: 1 });
-        else this.setState({ validNumber: 0 });
-
         if (password !== cpassword)
             this.setState({ validCpassword: 1 });
         else this.setState({ validCpassword: 0 });
@@ -64,6 +62,23 @@ class HomePage extends React.Component {
     }
     handleClick(event) {
         this.setState({ [event.target.name]: event.target.value });
+    }
+    deletePhone(item) {
+        var lst = this.state.nl;
+        var pos = lst.indexOf(item);
+        lst.splice(pos, 1);
+        this.setState({ nl: lst });
+    }
+    handlePhone() {
+        var lst = this.state.nl;
+        var { number } = this.state;
+        if (number !== '') {
+            if (number.length !== 10)
+                this.setState({ validNumber: 1 });
+            else this.setState({ validNumber: 0 });
+            lst.push(number);
+        }
+        this.setState({ number: '', nl: lst });
     }
     render() {
         var { name, email, password, cpassword, number } = this.state;
@@ -101,13 +116,20 @@ class HomePage extends React.Component {
                         <div class="form-group row">
                             <label htmlFor="phone" class="col-sm-2 col-form-label">Phone</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" name="number" value={number} onChange={this.handleClick}></input>
-                                <br />
+                                <input type="number" class="form-control col-sm-10 hey" name="number" value={number} onChange={this.handleClick}></input>
+                                <button type="button" onClick={this.handlePhone} class="hey btn btn-primary col-sm-2">+</button>
+                                <br /><br/>
                                 {
-                                    (this.state.validPassword) ? <div class="alert alert-danger" role="alert">
+                                    (this.state.validNumber) ? <div class="alert alert-danger" role="alert">
                                         <p>Please enter a proper phone number</p>
                                     </div> : null
                                 }
+                                {
+                                    this.state.nl.map((item, index) => {
+                                        return <div><span key={index}>{item}</span><button onClick={() => this.deletePhone(item)} type="button" class="btn btn-danger">-</button><br /></div>
+                                    })
+                                }
+                                <br /><br />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -142,10 +164,10 @@ class HomePage extends React.Component {
                             <span> I agree to the terms and conditions</span>
                         </div>
                         {
-                        (this.state.tnc)?
-                        <div class="form-group row fbtn">
-                                <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
-                        </div>:null
+                            (this.state.tnc) ?
+                                <div class="form-group row fbtn">
+                                    <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                                </div> : null
                         }
                     </form>
                 </div>

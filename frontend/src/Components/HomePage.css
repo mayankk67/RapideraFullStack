@@ -4,13 +4,17 @@
   color: white;
 }
 
+.hey{
+  float: left;
+}
+
 .conte {
   padding: 2%;
   margin: 2%;
 }
 
 .wrapper {
-  max-width: 30%;
+  max-width: 70%;
   margin: 7% auto 0 auto;
   -webkit-box-shadow: 0px 6px 15px -3px rgba(166, 164, 166, 1);
   -moz-box-shadow: 0px 6px 15px -3px rgba(166, 164, 166, 1);
