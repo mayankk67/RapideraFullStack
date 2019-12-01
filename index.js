@@ -8,7 +8,7 @@ sigup.use(cors());
 
 var cred={
     user:'mayankk',
-    password:'Bolt@x272',
+    password:'Bolt',
     server:'LAPTOP-DF9DH0NC\\MAYANK',
     database:'DXPDSAGMART'
 }
